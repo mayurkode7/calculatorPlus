@@ -2,6 +2,7 @@
 import { useState } from "react";
 import CalculateButton from "../../components/CalculateButton";
 import ClearButton from "../../components/ClearButton";
+import ShareButton from "../../components/ShareButton";
 
 export default function Percentage() {
   const [formData, setFormData] = useState({
@@ -113,14 +114,24 @@ export default function Percentage() {
 
       {formData.result && (
         <div className="w-full max-w-md mt-6 p-4 md:p-6 bg-green-100 border border-green-300 rounded-lg">
-          <p className="text-base md:text-lg text-green-800 text-center">
+          <p className="text-base md:text-lg text-green-800 text-center mb-4">
             The percentage change from {formData.fromValue} to{" "}
             {formData.toValue} is: <span className="font-bold text-xl">{formData.result}</span>
           </p>
+          <div className="flex justify-center">
+            <ShareButton
+              text={`📊 Calculator Plus Result\n\nPercentage change from ${formData.fromValue} to ${formData.toValue} is: ${formData.result}\n\nCalculated using Calculator Plus App developed by Mayur Kode.`}
+              disabled={false}
+            >
+              Share Result
+            </ShareButton>
+          </div>
         </div>
       )}
 
-      <div className="mt-8 w-full max-w-md border-t border-gray-300"></div>
+      
+
+
     </div>
   );
 }
