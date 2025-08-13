@@ -2,9 +2,9 @@
 Application to solve your calculation needs. So I call it plus.
 
 
-#Contributor
-Mayur Kode
+# Contributor
+Mayur Kode (mayurkode7@gmail.com)
 
-#Support 
+# Support 
 
-If you wish to support development of this, UPI: mayurkode@icici
+If you wish to support development of this, UPI: 
