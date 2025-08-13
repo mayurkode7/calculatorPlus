@@ -120,7 +120,7 @@ export default function Percentage() {
           </p>
           <div className="flex justify-center">
             <ShareButton
-              text={`📊 Calculator Plus Result\n\nPercentage change from ${formData.fromValue} to ${formData.toValue} is: ${formData.result}\n\nCalculated using Calculator Plus App developed by Mayur Kode.`}
+              text={`🔣 Calculator Plus Result\n\nPercentage change from ${formData.fromValue} to ${formData.toValue} is: ${formData.result}\n\nCalculated using Calculator Plus App developed by Mayur Kode.`}
               disabled={false}
             >
               Share Result
