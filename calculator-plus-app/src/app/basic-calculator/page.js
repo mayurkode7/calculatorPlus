@@ -14,14 +14,17 @@ export default function BasicCalculator() {
   const [toastMessage, setToastMessage] = useState("");
   const toastTimeoutRef = useRef(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [toastItemIndex, setToastItemIndex] = useState(null);
 
-  const showToast = (message) => {
+  const showToast = (message, itemIndex) => {
     setToastMessage(message);
+    setToastItemIndex(itemIndex);
     if (toastTimeoutRef.current) {
       clearTimeout(toastTimeoutRef.current);
     }
     toastTimeoutRef.current = setTimeout(() => {
       setToastMessage("");
+      setToastItemIndex(null);
     }, 1500);
   };
 
@@ -231,7 +234,7 @@ export default function BasicCalculator() {
     }
   };
 
-  const copyToClipboard = async (text) => {
+  const copyToClipboard = async (text, anchorEl, itemIndex) => {
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(text);
@@ -246,7 +249,7 @@ export default function BasicCalculator() {
         document.execCommand("copy");
         document.body.removeChild(textarea);
       }
-      showToast("Copied to clipboard");
+      showToast("Copied to clipboard", itemIndex);
     } catch (_) {
       // no-op
     }
@@ -312,23 +315,32 @@ export default function BasicCalculator() {
                 <li className="text-gray-400 p-3">No history yet.</li>
               ) : (
                 history.map((item, index) => (
-                  <li key={index} className="flex items-center justify-between gap-2 p-3">
-                    <span className="text-gray-600 truncate">{item.expression} =</span>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className="font-medium text-gray-900">{item.result}</span>
-                      <button
-                        type="button"
-                        aria-label={`Copy ${item.expression} equals ${item.result}`}
-                        title="Copy to clipboard"
-                        className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        onClick={() => copyToClipboard(`${item.expression} = ${item.result}`)}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-                          <path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1z" />
-                          <path d="M8 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm0 2v12h12V7H8z" />
-                        </svg>
-                      </button>
+                  <li key={index} className="flex flex-col">
+                    <div className="flex items-center justify-between gap-2 p-3">
+                      <span className="text-gray-600 truncate">{item.expression} =</span>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className="font-medium text-gray-900">{item.result}</span>
+                        <button
+                          type="button"
+                          aria-label={`Copy ${item.expression} equals ${item.result}`}
+                          title="Copy to clipboard"
+                          className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          onClick={(e) => copyToClipboard(`${item.expression} = ${item.result}`, e.currentTarget, index)}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                            <path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1z" />
+                            <path d="M8 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm0 2v12h12V7H8z" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
+                    {toastItemIndex === index && toastMessage && (
+                      <div className="px-3 pb-2">
+                        <div className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded animate-in fade-in slide-in-from-top-1 duration-200">
+                          {toastMessage}
+                        </div>
+                      </div>
+                    )}
                   </li>
                 ))
               )}
@@ -378,23 +390,32 @@ export default function BasicCalculator() {
                 <li className="text-gray-400 p-3">No history yet.</li>
               ) : (
                 history.map((item, index) => (
-                  <li key={index} className="flex items-center justify-between gap-2 p-3">
-                    <span className="text-gray-600 truncate">{item.expression} =</span>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className="font-medium text-gray-900">{item.result}</span>
-                      <button
-                        type="button"
-                        aria-label={`Copy ${item.expression} equals ${item.result}`}
-                        title="Copy to clipboard"
-                        className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        onClick={() => copyToClipboard(`${item.expression} = ${item.result}`)}
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-                          <path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1z" />
-                          <path d="M8 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm0 2v12h12V7H8z" />
-                        </svg>
-                      </button>
+                  <li key={index} className="flex flex-col">
+                    <div className="flex items-center justify-between gap-2 p-3">
+                      <span className="text-gray-600 truncate">{item.expression} =</span>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className="font-medium text-gray-900">{item.result}</span>
+                        <button
+                          type="button"
+                          aria-label={`Copy ${item.expression} equals ${item.result}`}
+                          title="Copy to clipboard"
+                          className="p-1 rounded hover:bg-gray-100 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          onClick={(e) => copyToClipboard(`${item.expression} = ${item.result}`, e.currentTarget, index)}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                            <path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1z" />
+                            <path d="M8 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm0 2v12h12V7H8z" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
+                    {toastItemIndex === index && toastMessage && (
+                      <div className="px-3 pb-2">
+                        <div className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded animate-in fade-in slide-in-from-top-1 duration-200">
+                          {toastMessage}
+                        </div>
+                      </div>
+                    )}
                   </li>
                 ))
               )}
@@ -402,15 +423,6 @@ export default function BasicCalculator() {
           </div>
         </div>
       </div>
-      {toastMessage && (
-        <div
-          role="status"
-          aria-live="polite"
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-sm px-3 py-2 rounded shadow"
-        >
-          {toastMessage}
-        </div>
-      )}
       <div className="mt-auto">
         <Footer />
       </div>
