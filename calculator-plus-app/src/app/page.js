@@ -9,6 +9,7 @@ export default function Home() {
   const tools = [
     { href: "/about", label: "About" },
     { href: "/percentage", label: "Percentage" },
+    { href: "/basic-calculator", label: "Basic Calculator" },
   ];
 
   const filteredTools = tools.filter((tool) =>
@@ -16,7 +17,7 @@ export default function Home() {
   );
 
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-start justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+    <div className="font-sans min-h-screen p-8 pb-20 sm:p-20 flex flex-col items-center">
       <main className="flex flex-col gap-[20px] items-center sm:items-start">
         <h1 className="text-4xl font-bold">Simplified Tools</h1>
         <p className="text-lg">
@@ -41,7 +42,9 @@ export default function Home() {
         </div>
         
       </main>
-      <Footer />
+      <div className="mt-auto w-full flex justify-center">
+        <Footer />
+      </div>
     </div>
   );
 }
