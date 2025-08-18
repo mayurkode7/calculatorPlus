@@ -3,6 +3,7 @@ import { useState } from "react";
 import CalculateButton from "../../components/CalculateButton";
 import ClearButton from "../../components/ClearButton";
 import ShareButton from "../../components/ShareButton";
+import Footer from "../components/Footer";
 
 export default function Percentage() {
   const [formData, setFormData] = useState({
@@ -33,6 +34,7 @@ export default function Percentage() {
   };
 
   return (
+    <>
     <div className="flex flex-col items-center  min-h-screen p-4">
       <div className="w-full max-w-md">
         <h1 className="text-3xl md:text-4xl font-bold text-left mb-2">Percentage</h1>
@@ -129,9 +131,9 @@ export default function Percentage() {
         </div>
       )}
 
-      
-
-
+    
     </div>
+    <Footer/>
+    </>
   );
 }
