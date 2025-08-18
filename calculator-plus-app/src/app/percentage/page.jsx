@@ -44,9 +44,6 @@ export default function Percentage() {
       </div>
 
       <form className="w-full max-w-md" onSubmit={handleCalculate}>
-        <p className="text-sm text-gray-600 mb-6 text-center">
-          Enter two values to calculate the percentage change between them
-        </p>
 
         <div className="flex flex-col md:flex-row md:items-end space-y-4 md:space-y-0 md:space-x-6">
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
