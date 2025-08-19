@@ -266,6 +266,16 @@ export default function BasicCalculator() {
     showToast("History cleared");
   };
 
+  const getDisplaySizeClass = (value) => {
+    const length = String(value).length;
+    if (length <= 6) return "text-6xl";
+    if (length <= 8) return "text-5xl";
+    if (length <= 10) return "text-4xl";
+    if (length <= 12) return "text-3xl";
+    if (length <= 16) return "text-2xl";
+    return "text-xl";
+  };
+
   return (
     <div className="font-sans min-h-screen p-8 sm:p-20 flex flex-col">
       <div className="flex items-center justify-end md:hidden mb-2">
@@ -281,7 +291,7 @@ export default function BasicCalculator() {
         <section className="flex-1 flex items-center justify-center">
           <div className="w-full max-w-sm sm:max-w-md md:max-w-lg bg-black rounded-3xl p-4">
             <div className="text-right text-gray-400 text-sm pr-2 h-5 truncate">{liveExpression}</div>
-            <div className="text-right text-white text-6xl font-light leading-none py-6 pr-2">{displayValue}</div>
+            <div className={`text-right text-white ${getDisplaySizeClass(displayValue)} font-light leading-none py-6 pr-2 whitespace-nowrap overflow-hidden`}>{displayValue}</div>
             <div className="grid grid-cols-4 gap-3">
               {buttons.map((btn) => (
                 <button
@@ -298,7 +308,7 @@ export default function BasicCalculator() {
           </div>
         </section>
         <aside className="hidden md:block w-full md:w-80 lg:w-96">
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between pb-2 mb-2 border-b border-gray-200">
             <h2 className="text-sm font-medium text-gray-600">Recent operations</h2>
             <button
               type="button"
@@ -361,8 +371,8 @@ export default function BasicCalculator() {
         <div
           className={`absolute right-0 top-0 h-full w-80 max-w-full bg-white shadow-xl transform transition-transform duration-300 ${isHistoryOpen ? "translate-x-0" : "translate-x-full"}`}
         >
-                      <div className="flex items-center justify-between p-3 border-b border-gray-200">
-                          <h2 className="text-sm font-medium text-gray-700">Recent operations</h2>
+          <div className="flex items-center justify-between p-3 border-b border-gray-200">
+            <h2 className="text-sm font-medium text-gray-700">Recent operations</h2>
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -423,6 +433,15 @@ export default function BasicCalculator() {
           </div>
         </div>
       </div>
+      {toastMessage && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed top-0 left-0 right-0 z-50 w-full bg-gray-900 text-white text-sm px-4 py-2 text-center shadow"
+        >
+          {toastMessage}
+        </div>
+      )}
       <div className="mt-auto">
         <Footer />
       </div>
