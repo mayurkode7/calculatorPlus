@@ -7,7 +7,6 @@ export default function Home() {
   const [query, setQuery] = useState("");
 
   const tools = [
-    { href: "/about", label: "About" },
     { href: "/percentage", label: "Percentage" },
     { href: "/basic-calculator", label: "Basic Calculator" },
   ];
@@ -19,9 +18,9 @@ export default function Home() {
   return (
     <div className="font-sans min-h-screen p-8 pb-20 sm:p-20 flex flex-col items-center">
       <main className="flex flex-col gap-[20px] items-center sm:items-start">
-        <h1 className="text-4xl font-bold">Simplified Tools</h1>
+        <h1 className="text-4xl font-bold">Calculator Plus</h1>
         <p className="text-lg">
-          Set of useful tools for everyday use.
+          Set of useful tools for everyday calculations.
         </p>
         <input
           type="text"
@@ -43,7 +42,7 @@ export default function Home() {
         
       </main>
       <div className="mt-auto w-full flex justify-center">
-        <Footer />
+        <Footer />  
       </div>
     </div>
   );

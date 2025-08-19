@@ -159,11 +159,12 @@ export default function Percentage() {
         </div>
       </div>
 
-      
+      <div className="mt-auto w-full flex justify-center">
+        <Footer/>
+      </div>
 
     
     </div>
-    <Footer/>
     </>
   );
 }
