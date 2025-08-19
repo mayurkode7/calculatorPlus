@@ -1,7 +1,7 @@
 import Footer from "../components/Footer";
 
 export default function About() {
-  const upiLink = "upi://pay?pa=mayurkode@icici&pn=Calculator%20Plus&cu=INR";
+  const upiLink = "";
 
   return (
     <div className="font-sans min-h-screen p-8 sm:p-20 flex flex-col">
