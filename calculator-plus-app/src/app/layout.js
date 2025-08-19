@@ -13,12 +13,22 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Calculator Plus",
-  description: "Calculator Plus is a simple calculator app built to solve your mathematical problems.",
+  description: "Simplified tools for everyday use",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.webmanifest" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Calculator Plus" />
+        <meta name="theme-color" content="#000000" />
+        <link rel="icon" href="/icons/app-icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/icons/app-icon.svg" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
