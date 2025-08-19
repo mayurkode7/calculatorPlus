@@ -11,6 +11,7 @@ export default function Percentage() {
     toValue: "",
     result: "",
   });
+  const [history, setHistory] = useState([]);
 
   const handleCalculate = (e) => {
     e.preventDefault();
@@ -18,10 +19,15 @@ export default function Percentage() {
       const from = parseFloat(formData.fromValue);
       const to = parseFloat(formData.toValue);
       const percentage = ((to - from) / from) * 100;
+      const formatted = `${percentage.toFixed(2)}%`;
       setFormData((prev) => ({
         ...prev,
-        result: `${percentage.toFixed(2)}%`,
+        result: formatted,
       }));
+      setHistory((prev) => [
+        { from, to, result: formatted },
+        ...prev,
+      ]);
     }
   };
 
@@ -31,6 +37,12 @@ export default function Percentage() {
       toValue: "",
       result: "",
     });
+  };
+
+  const clearHistory = () => {
+    if (history.length === 0) return;
+    const ok = window.confirm("Clear all recent operations?");
+    if (ok) setHistory([]);
   };
 
   return (
@@ -111,22 +123,43 @@ export default function Percentage() {
         </div>
       </form>
 
-      {formData.result && (
-        <div className="w-full max-w-md mt-6 p-4 md:p-6 bg-green-100 border border-green-300 rounded-lg">
-          <p className="text-base md:text-lg text-green-800 text-center mb-4">
-            The percentage change from {formData.fromValue} to{" "}
-            {formData.toValue} is: <span className="font-bold text-xl">{formData.result}</span>
-          </p>
-          <div className="flex justify-center">
-            <ShareButton
-              text={`🔣 Calculator Plus Result\n\nPercentage change from ${formData.fromValue} to ${formData.toValue} is: ${formData.result}\n\nCalculated using Calculator Plus App developed by Mayur Kode.`}
-              disabled={false}
-            >
-              Share Result
-            </ShareButton>
-          </div>
+      <div className="w-full max-w-md mt-6 pt-4 border-t border-gray-200">
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-sm font-medium text-gray-600">Recent operations</h2>
+          <button
+            type="button"
+            onClick={clearHistory}
+            disabled={history.length === 0}
+            className="text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-600 hover:text-gray-800 hover:bg-gray-50 disabled:opacity-40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Clear operations
+          </button>
         </div>
-      )}
+        <div className="border border-gray-200 rounded-lg overflow-hidden">
+          <ul className="divide-y divide-gray-200 max-h-56 overflow-y-auto text-sm">
+            {history.length === 0 ? (
+              <li className="p-3 text-gray-400">No history yet.</li>
+            ) : (
+              history.map((item, idx) => (
+                <li key={idx} className="p-3 flex items-center justify-between gap-2">
+                  <span className="text-gray-600 truncate">{item.from} → {item.to}</span>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="font-medium text-gray-900">{item.result}</span>
+                    <ShareButton
+                      text={`🔣 Calculator Plus Result\n\nPercentage change from ${item.from} to ${item.to} is: ${item.result}\n\nCalculated using Calculator Plus App developed by Mayur Kode.`}
+                      disabled={false}
+                      variant="icon"
+                      ariaLabel={`Share result ${item.result} for ${item.from} to ${item.to}`}
+                    />
+                  </div>
+                </li>
+              ))
+            )}
+          </ul>
+        </div>
+      </div>
+
+      
 
     
     </div>

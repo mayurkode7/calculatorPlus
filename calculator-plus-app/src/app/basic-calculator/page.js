@@ -299,7 +299,7 @@ export default function BasicCalculator() {
         </section>
         <aside className="hidden md:block w-full md:w-80 lg:w-96">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-sm font-medium text-gray-600">History</h2>
+            <h2 className="text-sm font-medium text-gray-600">Recent operations</h2>
             <button
               type="button"
               onClick={clearHistory}
@@ -361,8 +361,8 @@ export default function BasicCalculator() {
         <div
           className={`absolute right-0 top-0 h-full w-80 max-w-full bg-white shadow-xl transform transition-transform duration-300 ${isHistoryOpen ? "translate-x-0" : "translate-x-full"}`}
         >
-          <div className="flex items-center justify-between p-3 border-b">
-            <h2 className="text-sm font-medium text-gray-700">History</h2>
+                      <div className="flex items-center justify-between p-3 border-b border-gray-200">
+                          <h2 className="text-sm font-medium text-gray-700">Recent operations</h2>
             <div className="flex items-center gap-2">
               <button
                 type="button"
