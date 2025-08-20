@@ -402,7 +402,7 @@ export default function BasicCalculator() {
                               `
                             ${item.expression} = ${item.result} 
                             Developed by Mayur Kode. 
-                            Visit: https://calculator-plus.vercel.app
+                            Visit: https://calculator-plus-coral.vercel.app/
                             `,
                               e.currentTarget,
                               index
