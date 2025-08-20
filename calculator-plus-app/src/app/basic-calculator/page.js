@@ -1,4 +1,5 @@
 "use client";
+import ShareButton from "@/components/ShareButton";
 import Footer from "../components/Footer";
 import { useState, useRef, useEffect } from "react";
 
@@ -499,7 +500,13 @@ export default function BasicCalculator() {
                         <span className="font-medium text-gray-900">
                           {item.result}
                         </span>
-                        <button
+                    <ShareButton
+                      text={`🔣 Calculator Plus Result\n\n${item.expression} = ${item.result}\n\nCalculated using Calculator Plus App developed by Mayur Kode.\n\nVisit: https://calculator-plus-coral.vercel.app/`}
+                      disabled={false}
+                      variant="icon"
+                      ariaLabel={`Share result ${item.result} for ${item.from} to ${item.to}`}
+                    />
+                        {/* <button
                           type="button"
                           aria-label={`Copy ${item.expression} equals ${item.result}`}
                           title="Copy to clipboard"
@@ -521,7 +528,7 @@ export default function BasicCalculator() {
                             <path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1z" />
                             <path d="M8 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm0 2v12h12V7H8z" />
                           </svg>
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                     {toastItemIndex === index && toastMessage && (
