@@ -146,7 +146,7 @@ export default function Percentage() {
                   <div className="flex items-center gap-2 shrink-0">
                     <span className="font-medium text-gray-900">{item.result}</span>
                     <ShareButton
-                      text={`🔣 Calculator Plus Result\n\nPercentage change from ${item.from} to ${item.to} is: ${item.result}\n\nCalculated using Calculator Plus App developed by Mayur Kode.\n\nVisit: https://calculator-plus.vercel.app/`}
+                      text={`🔣 Calculator Plus Result\n\nPercentage change from ${item.from} to ${item.to} is: ${item.result}\n\nCalculated using Calculator Plus App developed by Mayur Kode.\n\nVisit: https://calculator-plus-coral.vercel.app/`}
                       disabled={false}
                       variant="icon"
                       ariaLabel={`Share result ${item.result} for ${item.from} to ${item.to}`}
