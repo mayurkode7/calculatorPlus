@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 import Footer from "./components/Footer";
@@ -25,7 +25,7 @@ export default function Home() {
         <p className="text-lg">
           Set of useful tools for everyday calculations.
         </p>
-      
+
         <input
           type="text"
           value={query}
@@ -55,10 +55,17 @@ export default function Home() {
             <p className="text-gray-500 text-sm">No tools found.</p>
           )}
         </div>
-        
+
+        <p>सुखकर्ता दुखहर्ता, वार्ता विघ्नांची| 
+नुरवी; पुरवी प्रेम, कृपा जयाची|
+
+        </p>
+        <p>नुरवी; पुरवी प्रेम, कृपा जयाची|</p>
+        <p>सर्वांगी सुंदर, उटी शेंदुराची|</p>
+        <p>कंठी झळके माळ, मुक्ताफळांची॥१॥</p>
       </main>
       <div className="mt-auto w-full flex justify-center">
-        <Footer />  
+        <Footer />
       </div>
     </div>
   );
