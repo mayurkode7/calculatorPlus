@@ -10,6 +10,7 @@ export default function Home() {
   const tools = [
     { href: "/percentage", label: "Percentage" },
     { href: "/basic-calculator", label: "Basic Calculator" },
+    { href: "/mileage-calculator", label: "Mileage Calculator" },
   ];
 
   const filteredTools = tools.filter((tool) =>
