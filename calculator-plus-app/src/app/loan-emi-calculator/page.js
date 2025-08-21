@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import ShareButton from "@/components/ShareButton";
+import Footer from "../components/Footer";
 
 function calculateEMI(principal, annualRate, months) {
   const r = annualRate / 12 / 100;
@@ -59,8 +60,8 @@ export default function LoanEMICalculator() {
   };
 
   return (
-    <div className="font-sans min-h-screen bg-gray-50">
-      <div className="flex flex-col items-center pt-10">
+    <div className="font-sans min-h-screen bg-gray-50 flex flex-col">
+      <div className="flex flex-col items-center pt-10 flex-1">
         <h1 className="text-3xl font-bold text-blue-600 text-center mb-2">Loan EMI Calculator</h1>
         <p className="text-gray-500 text-center mb-10">Calculate your monthly loan EMI easily.</p>
         <div className="flex flex-col gap-4 w-full max-w-md px-2">
@@ -128,6 +129,9 @@ export default function LoanEMICalculator() {
             </div>
           )}
         </div>
+      </div>
+      <div className="shrink-0">
+        <Footer />
       </div>
     </div>
   );
