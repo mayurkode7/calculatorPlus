@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import ShareButton from "@/components/ShareButton";
 
 function calculateEMI(principal, annualRate, months) {
   const r = annualRate / 12 / 100;
@@ -115,8 +116,15 @@ export default function LoanEMICalculator() {
             </button>
           </div>
           {emi !== null && !error && (
-            <div className="mt-2 text-lg text-green-700 text-center">
+            <div className="mt-2 text-lg text-green-700 text-center flex items-center justify-center gap-2">
               EMI: <span className="font-bold">₹{formatIndianNumber(emi)} / month</span>
+              <span className="scale-70">
+                <ShareButton
+                  text={
+                    `Loan EMI is ₹${formatIndianNumber(emi)} per month for a principal of ₹${formatIndianNumber(principal)} at ${rate}% annual interest for ${months} months.\n\nCalculated using Calculator Plus App developed by Mayur Kode.\n\nVisit: https://calculator-plus-coral.vercel.app/`
+                  }
+                />
+              </span>
             </div>
           )}
         </div>
