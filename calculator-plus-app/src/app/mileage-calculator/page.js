@@ -136,9 +136,9 @@ export default function MileageCalculator() {
                   <span className="text-gray-800 text-sm">
                     Distance: <b>{item.distance}</b> km, Fuel: <b>{item.fuel}</b> l, Mileage: <b>{item.mileage} km/l</b>
                   </span>
-                  <ShareButton
+                  {/* <ShareButton
                     text={`Mileage Calculation:\nDistance: ${item.distance} km\nFuel: ${item.fuel} liters \nMileage: ${item.mileage} km/l\n\nCalculated using Calculator Plus App developed by Mayur Kode.\n\nVisit: https://calculator-plus-coral.vercel.app/`}
-                  />
+                  /> */}
                 </li>
               ))}
             </ul>
