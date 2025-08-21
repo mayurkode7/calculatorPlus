@@ -34,11 +34,23 @@ export default function Home() {
           className="w-full max-w-xs rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <div className="flex flex-col gap-[8px]">
-          {filteredTools.map((tool) => (
-            <Link key={tool.href} href={tool.href} className="text-blue-600 hover:underline">
-              {tool.label}
-            </Link>
-          ))}
+          {filteredTools.map((tool) => {
+            let emoji = "";
+            if (tool.label === "Percentage") emoji = "📊";
+            else if (tool.label === "Basic Calculator") emoji = "🧮";
+            else if (tool.label === "Mileage Calculator") emoji = "🚗";
+            else if (tool.label === "Loan Emi Calculator") emoji = "💸";
+            return (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="text-blue-600 hover:bg-blue-50 hover:underline rounded-lg px-4 py-3 text-base transition cursor-pointer active:bg-blue-100 flex items-center gap-2"
+              >
+                <span>{emoji}</span>
+                {tool.label}
+              </Link>
+            );
+          })}
           {filteredTools.length === 0 && (
             <p className="text-gray-500 text-sm">No tools found.</p>
           )}
