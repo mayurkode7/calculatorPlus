@@ -58,11 +58,11 @@ export default function LoanEMICalculator() {
   };
 
   return (
-    <div className="font-sans min-h-screen flex flex-col items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 sm:p-8 flex flex-col gap-6">
+    <div className="font-sans min-h-screen bg-gray-50">
+      <div className="flex flex-col items-center pt-10">
         <h1 className="text-3xl font-bold text-blue-600 text-center mb-2">Loan EMI Calculator</h1>
-        <p className="text-gray-500 text-center mb-4">Calculate your monthly loan EMI easily.</p>
-        <div className="flex flex-col gap-4">
+        <p className="text-gray-500 text-center mb-10">Calculate your monthly loan EMI easily.</p>
+        <div className="flex flex-col gap-4 w-full max-w-md px-2">
           <div>
             <label className="block mb-1 text-gray-700 font-medium">Principal Amount</label>
             <input
