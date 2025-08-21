@@ -311,7 +311,7 @@ export default function BasicCalculator() {
 
   return (
     <div className="font-sans min-h-screen p-8 sm:p-20 flex flex-col">
-      <div className="flex items-center justify-between md:hidden mb-2">
+      <div className="flex items-center justify-between md:hidden">
         <div className="flex items-center">
           <label htmlFor="format-select" className="text-xs text-gray-600">
             Format

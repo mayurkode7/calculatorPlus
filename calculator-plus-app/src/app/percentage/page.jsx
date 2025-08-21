@@ -142,13 +142,14 @@ export default function Percentage() {
             ) : (
               history.map((item, idx) => (
                 <li key={idx} className="p-3 flex items-center justify-between gap-2">
-                  <span className="text-gray-600 truncate">{item.from} → {item.to}</span>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="font-medium text-gray-900">{item.result}</span>
+                  <span className="text-gray-600 truncate">{item.from} → {item.to} = {item.result}</span>
+                  
+                  <div className="flex items-center shrink-0">
+                   
                     <ShareButton
                       text={`🔣 Calculator Plus Result\n\nPercentage change from ${item.from} to ${item.to} is: ${item.result}\n\nCalculated using Calculator Plus App developed by Mayur Kode.\n\nVisit: https://calculator-plus-coral.vercel.app/`}
                       disabled={false}
-                      variant="icon"
+                      variant="default"
                       ariaLabel={`Share result ${item.result} for ${item.from} to ${item.to}`}
                     />
                   </div>

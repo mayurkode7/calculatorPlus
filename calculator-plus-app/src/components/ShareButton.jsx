@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
 
-export default function ShareButton({ text, disabled = false, children = "Share", className = "", variant = "default", ariaLabel = "Share" }) {
+export default function ShareButton({ text, disabled = false, 
+  children = "Share", className = "", 
+  variant = "default", 
+  ariaLabel = "Share" }) {
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
