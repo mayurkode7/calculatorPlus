@@ -82,7 +82,7 @@ export default function MileageCalculator() {
     <div className="font-sans min-h-screen flex flex-col items-center justify-center bg-gray-50">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 sm:p-8 flex flex-col gap-6">
         <h1 className="text-3xl font-bold text-blue-600 text-center mb-2">Mileage Calculator</h1>
-        <p className="text-gray-500 text-center mb-4">Calculate your vehicle's mileage easily.</p>
+        <p className="text-gray-500 text-center mb-4">Calculate your vehicles mileage easily.</p>
         <div className="flex flex-col gap-4">
           <div>
             <label className="block mb-1 text-gray-700 font-medium">Distance Travelled (km)</label>
@@ -136,9 +136,9 @@ export default function MileageCalculator() {
                   <span className="text-gray-800 text-sm">
                     Distance: <b>{item.distance}</b> km, Fuel: <b>{item.fuel}</b> l, Mileage: <b>{item.mileage} km/l</b>
                   </span>
-                  {/* <ShareButton
+                  <ShareButton
                     text={`Mileage Calculation:\nDistance: ${item.distance} km\nFuel: ${item.fuel} liters \nMileage: ${item.mileage} km/l\n\nCalculated using Calculator Plus App developed by Mayur Kode.\n\nVisit: https://calculator-plus-coral.vercel.app/`}
-                  /> */}
+                  />
                 </li>
               ))}
             </ul>
