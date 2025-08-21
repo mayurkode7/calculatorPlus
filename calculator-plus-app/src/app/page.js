@@ -11,6 +11,7 @@ export default function Home() {
     { href: "/percentage", label: "Percentage" },
     { href: "/basic-calculator", label: "Basic Calculator" },
     { href: "/mileage-calculator", label: "Mileage Calculator" },
+    { href: "/loan-emi-calculator", label: "Loan Emi Calculator" },
   ];
 
   const filteredTools = tools.filter((tool) =>
