@@ -87,7 +87,7 @@ export default function MileageCalculator() {
           <div>
             <label className="block mb-1 text-gray-700 font-medium">Distance Travelled (km)</label>
             <input
-              type="text"
+              type="number"
               value={distance}
               onChange={handleDistanceChange}
               className="w-full rounded-lg border border-gray-300 px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -97,7 +97,7 @@ export default function MileageCalculator() {
           <div>
             <label className="block mb-1 text-gray-700 font-medium">Fuel Consumed (litres)</label>
             <input
-              type="text"
+              type="number"
               value={fuel}
               onChange={handleFuelChange}
               className="w-full rounded-lg border border-gray-300 px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
