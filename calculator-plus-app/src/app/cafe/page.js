@@ -128,18 +128,21 @@ export default function Cafe() {
   return (
     <div className="font-sans min-h-screen p-6 flex flex-col">
       <main className="flex flex-col gap-[16px] w-full max-w-sm mx-auto">
-        <div className="flex items-center justify-center gap-2">
-          <h1 className="text-3xl font-bold text-center">Cafe</h1>
-          {cartCount > 0 && (
-            <span
-              aria-label={`${cartCount} items in cart`}
-              className="inline-flex items-center justify-center text-xs font-semibold bg-blue-600 text-white rounded-full h-5 min-w-[1.25rem] px-2"
-            >
-              {cartCount}
-            </span>
-          )}
-          <Link href="/cafe/cart" className="ml-2 text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            View cart
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold">Cafe</h1>
+          <Link
+            href="/cafe/cart"
+            aria-label="View cart"
+            className="relative inline-flex items-center justify-center h-9 w-9 rounded-full border border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3 3h2l.4 2M7 13h10l3-8H6.4M7 13l-1.2 6H19M7 13l-3-8" />
+            </svg>
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 inline-flex items-center justify-center text-[10px] font-semibold bg-blue-600 text-white rounded-full h-4 min-w-[1rem] px-1">
+                {cartCount}
+              </span>
+            )}
           </Link>
         </div>
         
@@ -181,8 +184,6 @@ export default function Cafe() {
             )}  
           </ul>
         </section>
-
-        {/* Cart content moved to /cafe/cart page */}
         
       </main>
       {toastMessage && (
