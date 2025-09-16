@@ -157,7 +157,7 @@ export default function Cafe() {
             placeholder="Search menu..."
             className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-5"
           />
-          <ul className="list-disc pl-5 space-y-1 text-gray-800">
+          <ul className="list-disc pl-5 space-y-3 text-gray-800">
             {filteredItems.length === 0 ? (
               <li className="list-none text-gray-500">No items found.</li>
             ) : (
@@ -166,7 +166,7 @@ export default function Cafe() {
                 const inCart = Boolean(cartEntry);
                 const qty = cartEntry?.qty ?? 0;
                 return (
-                  <li key={item.name} className={`flex items-center justify-between pr-2 rounded ${inCart ? "bg-green-50" : ""}`}>
+                  <li key={item.name} className={`flex items-center justify-between pr-2 rounded py-2 ${inCart ? "bg-green-50" : ""}`}>
                     <span className="flex items-center">
                       <span className="mr-2" aria-hidden>{getEmoji(item.name)}</span>
                       {item.name}
