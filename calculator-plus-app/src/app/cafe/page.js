@@ -1,5 +1,6 @@
 'use client';
 import Footer from "../components/Footer";
+import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 
 export default function Cafe() {
@@ -8,6 +9,7 @@ export default function Cafe() {
   const [cart, setCart] = useState([]); // [{ name, price, qty }]
   const [toastMessage, setToastMessage] = useState("");
   const toastRef = useRef(null);
+  const [toastPos, setToastPos] = useState({ top: 0, left: 0 });
 
   useEffect(() => {
     try {
@@ -60,23 +62,36 @@ export default function Cafe() {
     item.name.toLowerCase().includes(query.toLowerCase())
   );
 
-  const showToast = (msg) => {
+  const showToast = (msg, anchorEl) => {
+    if (anchorEl && anchorEl.getBoundingClientRect) {
+      const rect = anchorEl.getBoundingClientRect();
+      setToastPos({ top: rect.bottom + 8, left: rect.left + rect.width / 2 });
+    } else if (typeof window !== 'undefined') {
+      setToastPos({ top: 24, left: window.innerWidth / 2 });
+    }
     setToastMessage(msg);
     if (toastRef.current) clearTimeout(toastRef.current);
     toastRef.current = setTimeout(() => setToastMessage(""), 1500);
   };
 
-  const addToCart = (menuItem) => {
+  const addToCart = (menuItem, anchorEl) => {
     setCart((prev) => {
       const idx = prev.findIndex((x) => x.name === menuItem.name);
+      let next;
       if (idx !== -1) {
-        const next = [...prev];
+        next = [...prev];
         next[idx] = { ...next[idx], qty: next[idx].qty + 1 };
-        return next;
+      } else {
+        next = [...prev, { name: menuItem.name, price: menuItem.price, qty: 1 }];
       }
-      return [...prev, { name: menuItem.name, price: menuItem.price, qty: 1 }];
+      try {
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem('cafeCart', JSON.stringify(next));
+        }
+      } catch (_) {}
+      return next;
     });
-    showToast(`${menuItem.name} added to cart`);
+    showToast(`${menuItem.name} added to cart`, anchorEl);
   };
 
   const increment = (name) => {
@@ -103,6 +118,10 @@ export default function Cafe() {
     }
   };
 
+  const removeItem = (name) => {
+    setCart((prev) => prev.filter((x) => x.name !== name));
+  };
+
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
 
@@ -119,6 +138,9 @@ export default function Cafe() {
               {cartCount}
             </span>
           )}
+          <Link href="/cafe/cart" className="ml-2 text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            View cart
+          </Link>
         </div>
         
         <p className="text-base text-gray-700 text-center">From fiery Chinese stir-fries to soulful coastal Konkani classics, our cafe serves bold flavors with homely warmth — perfect with a hot brew.</p>
@@ -143,11 +165,15 @@ export default function Cafe() {
                     <span className="text-gray-700">₹{item.price}</span>
                     <button
                       type="button"
-                      className="text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="h-7 w-7 inline-flex items-center justify-center rounded border border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                       aria-label={`Add ${item.name} to cart`}
-                      onClick={() => addToCart(item)}
+                      title="Add to cart"
+                      onClick={(e) => addToCart(item, e.currentTarget)}
                     >
-                      Add to cart
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-4 w-4">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3 3h2l.4 2M7 13h10l3-8H6.4M7 13l-1.2 6H19M7 13l-3-8" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M10 17.5h4M12 15.5v4" />
+                      </svg>
                     </button>
                   </div>
                 </li>
@@ -156,65 +182,26 @@ export default function Cafe() {
           </ul>
         </section>
 
-        {cart.length > 0 && (
-          <section className="mt-4 w-full">
-            <h3 className="text-xl font-semibold mb-2">Cart</h3>
-            <ul className="divide-y divide-gray-200 border border-gray-200 rounded-lg overflow-hidden">
-              {cart.map((ci) => (
-                <li key={ci.name} className="flex items-center justify-between p-3">
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-800">{ci.name}</span>
-                    <span className="text-gray-500 text-sm">₹{ci.price} × {ci.qty}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      className="h-7 w-7 rounded border border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none"
-                      aria-label={`Decrease ${ci.name}`}
-                      onClick={() => decrement(ci.name)}
-                    >
-                      −
-                    </button>
-                    <span className="min-w-[1.5rem] text-center">{ci.qty}</span>
-                    <button
-                      type="button"
-                      className="h-7 w-7 rounded border border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none"
-                      aria-label={`Increase ${ci.name}`}
-                      onClick={() => increment(ci.name)}
-                    >
-                      +
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <div className="flex items-center justify-between mt-3">
-              <span className="font-medium">Total</span>
-              <span className="font-semibold">₹{cartTotal}</span>
-            </div>
-            <div className="flex items-center justify-between mt-3">
-              <button
-                type="button"
-                onClick={clearCart}
-                className="text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                Clear cart
-              </button>
-              <a
-                href={upiLink}
-                className="inline-flex items-center gap-2 rounded-md bg-blue-600 text-white px-4 py-2 text-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                Checkout
-              </a>
-            </div>
-          </section>
-        )}
+        {/* Cart content moved to /cafe/cart page */}
         
       </main>
       {toastMessage && (
-        <div role="status" aria-live="polite" className="fixed top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-sm px-3 py-2 rounded shadow">
+        <div role="status" aria-live="polite" className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white text-sm px-3 py-2 rounded shadow animate-in fade-in duration-200">
           {toastMessage}
         </div>
+      )}
+      {cartCount > 0 && (
+        <Link
+          href="/cafe/cart"
+          className="fixed md:hidden bottom-6 right-6 inline-flex items-center gap-2 rounded-full bg-blue-600 text-white px-4 py-3 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label="View cart"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3 3h2l.4 2M7 13h10l3-8H6.4M7 13l-1.2 6H19M7 13l-3-8" />
+          </svg>
+          <span className="text-sm font-semibold">Cart</span>
+          <span className="ml-1 inline-flex items-center justify-center text-xs font-semibold bg-white text-blue-700 rounded-full h-5 min-w-[1.25rem] px-1">{cartCount}</span>
+        </Link>
       )}
       <div className="mt-auto">
         <Footer text={"© " + new Date().getFullYear() + " Cafe.Inc. Cooked with ❤️ in 🇮🇳"}
