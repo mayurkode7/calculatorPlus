@@ -161,26 +161,61 @@ export default function Cafe() {
             {filteredItems.length === 0 ? (
               <li className="list-none text-gray-500">No items found.</li>
             ) : (
-              filteredItems.map((item) => (
-                <li key={item.name} className="flex items-center justify-between pr-2">
-                  <span><span className="mr-2" aria-hidden>{getEmoji(item.name)}</span>{item.name}</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-700">₹{item.price}</span>
-                    <button
-                      type="button"
-                      className="h-7 w-7 inline-flex items-center justify-center rounded border border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      aria-label={`Add ${item.name} to cart`}
-                      title="Add to cart"
-                      onClick={(e) => addToCart(item, e.currentTarget)}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-4 w-4">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3 3h2l.4 2M7 13h10l3-8H6.4M7 13l-1.2 6H19M7 13l-3-8" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M10 17.5h4M12 15.5v4" />
-                      </svg>
-                    </button>
-                  </div>
-                </li>
-              ))
+              filteredItems.map((item) => {
+                const cartEntry = cart.find((x) => x.name === item.name);
+                const inCart = Boolean(cartEntry);
+                const qty = cartEntry?.qty ?? 0;
+                return (
+                  <li key={item.name} className={`flex items-center justify-between pr-2 rounded ${inCart ? "bg-green-50" : ""}`}>
+                    <span className="flex items-center">
+                      <span className="mr-2" aria-hidden>{getEmoji(item.name)}</span>
+                      {item.name}
+                      {inCart && (
+                        <span className="ml-2 inline-flex items-center justify-center text-[10px] font-semibold bg-green-600 text-white rounded-full h-4 min-w-[1rem] px-1" aria-label={`Quantity ${qty}`}>
+                          {qty}
+                        </span>
+                      )}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-700">₹{item.price}</span>
+                      {inCart ? (
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            className="h-7 w-7 inline-flex items-center justify-center rounded border border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none"
+                            aria-label={`Decrease ${item.name}`}
+                            onClick={() => decrement(item.name)}
+                          >
+                            −
+                          </button>
+                          <span className="min-w-[1.5rem] text-center text-sm">{qty}</span>
+                          <button
+                            type="button"
+                            className="h-7 w-7 inline-flex items-center justify-center rounded border border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none"
+                            aria-label={`Increase ${item.name}`}
+                            onClick={() => increment(item.name)}
+                          >
+                            +
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          type="button"
+                          className={`h-7 w-7 inline-flex items-center justify-center rounded border focus:outline-none focus:ring-2 focus:ring-blue-500 border-gray-300 bg-white text-gray-700 hover:text-gray-900 hover:bg-gray-50`}
+                          aria-label={`Add ${item.name} to cart`}
+                          title={"Add to cart"}
+                          onClick={(e) => addToCart(item, e.currentTarget)}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-4 w-4">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M3 3h2l.4 2M7 13h10l3-8H6.4M7 13l-1.2 6H19M7 13l-3-8" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M10 17.5h4M12 15.5v4" />
+                          </svg>
+                        </button>
+                      )}
+                    </div>
+                  </li>
+                );
+              })
             )}  
           </ul>
         </section>
