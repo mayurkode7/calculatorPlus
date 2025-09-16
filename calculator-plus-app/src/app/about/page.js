@@ -22,7 +22,6 @@ export default function About() {
             href={upiLink}
             className="inline-flex items-center gap-2 rounded-md bg-blue-600 text-white px-4 py-2 text-sm md:text-base hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-          
             Support us
           </a>
         </div>
